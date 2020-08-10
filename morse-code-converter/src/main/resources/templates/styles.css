@@ -1,0 +1,43 @@
+/* @charset "ISO-8859-1"; */
+@import "compass/css3";
+
+body {
+  background: #3D3D3D;
+  color: white;
+  font-family: Helvetica Neue, Helvetica, Arial, Verdana;
+  h1 {
+    text-align: center;
+  }
+}
+
+input[type="text"] {
+  display: block;
+  width: 300px;
+  margin: 20px auto;
+  -webkit-appearance: none;
+  border: 1px solid black;
+  font-size: 25px;
+  padding: 5px;
+  @include box-shadow(inset 0 0 10px 0 rgba(0, 0, 0, .5));
+  @include border-radius(5px);
+}
+
+
+.button {
+  background-color: #FFFFFF; /* Gray */
+  border: none;
+  color: gray;
+  padding: 10px 50px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+}
+
+#result-text {
+  color: white;
+  font-size: 40px;
+  width: 300px;
+  margin: 20px auto;
+  @include text-shadow(0 1px 1px rgba(0,0,0,.8));
+}

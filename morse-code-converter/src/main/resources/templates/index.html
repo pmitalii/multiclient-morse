@@ -1,0 +1,107 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<title>Morse</title>
+<script src="sound.js"></script>
+<script type="text/javascript">
+	window.onload = function() {
+		setTimeout(function() {
+			document.getElementById("loading").style.display = "none";
+		}, 3000);
+		
+		if('true' == document.getElementById('playSound').value) {
+			playSound('morseCodeId');
+		}
+	};
+
+	function clearField(toBClearField) {
+		document.getElementById(toBClearField).value = null;
+	};
+		
+</script>
+
+<link rel="icon" href="favicon.svg" type="image/svg" sizes="16x16">
+<link rel="stylesheet" type="text/css" href="index.css" />
+<link rel="stylesheet" type="text/css" href="styles.css" />
+</head>
+<body>
+	<header>
+		<h1 class="header">MORSE</h1>
+	</header>
+	<div class="row">
+		<ul>
+			<li>Morse lets you to convert your input english to morse and
+				vice-a-versa.</li>
+			<li>You can choose Input converter to convert input text.</li>
+			<li>Or you can simply upload a file and convert it into morse
+				code or english.</li>
+		</ul>
+	</div>
+	<div class="row">
+		<div class="column">
+			<form action="convertInput" th:action="@{/convertInput}"
+				th:object="${converterRequest}" method="post">
+				<input type="hidden" id="playSound" th:value="${play}"/>
+				<h2>INPUT CONVERTER</h2>
+				<table>
+					<tr>
+						<!-- <td><label for="englishMessage">English Message: </label></td> -->
+						<td><input type="text" th:field="*{englishMessage}"
+							name="englishMessage" id="englishMessageId"
+							placeholder="English Word" onfocus="clearField('morseCodeId');"></input></td>
+						<td th:if="${#fields.hasErrors('englishMessage')}"
+							th:errors="*{englishMessage}"></td>
+					</tr>
+					<tr>
+						<!-- <td><label for="morseCode">Morse Code: </label></td> -->
+						<td><input type="text" th:field="*{morseCode}"
+							id="morseCodeId" name="morseCode" placeholder="Morse Code"
+							onfocus="clearField('englishMessageId');"></input></td>
+					</tr>
+					<tr>
+						<!-- <td></td> -->
+						<td><button type="submit" class="button">Convert</button></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+		<div class="column">
+			<form action="uploadFile" th:action="@{/uploadFile}" method="post"
+				enctype="multipart/form-data">
+				<h2>FILE CONVERTER</h2>
+				<p th:text="${message}" th:if="${message ne null}"
+					class="alert alert-primary error"></p>
+				<table>
+					<tr>
+						<td><input type="file" name="file" class="form-control-file"></td>
+					</tr>
+
+					<tr>
+						<td><button type="submit" class="button">Upload File</button></td>
+					</tr>
+					<tr>
+						<td><input type="hidden" th:value="${path}"></td>
+					</tr>
+					<tr>
+						<td><p class="error" th:text="${readyMessage}"
+								th:if="${readyMessage ne null}"></p></td>
+					</tr>
+
+					<tr>
+						<td><a class="button" th:href="@{/download(path=${path})}"
+							th:if="${path ne null}">Click Here To Download</a></td>
+					</tr>
+				</table>
+			</form>
+		</div>
+	</div>
+	<footer>
+		<h5>site design by mittu&copy; Aug-2020, Mittu development
+			Inc&reg; user contributions licensed under Shubham Inc.&reg; rev
+			1.0.0-snapshot</h5>
+	</footer>
+</body>
+<div id="loading" style="display: block;">
+	<img id="loading-image" src="favicon.svg" alt="Loading..." />
+</div>
+</html>
