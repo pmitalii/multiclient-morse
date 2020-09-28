@@ -8,8 +8,8 @@
 		setTimeout(function() {
 			document.getElementById("loading").style.display = "none";
 		}, 3000);
-		
-		if('true' == document.getElementById('playSound').value) {
+
+		if ('true' == document.getElementById('playSound').value) {
 			playSound('morseCodeId');
 		}
 	};
@@ -17,7 +17,6 @@
 	function clearField(toBClearField) {
 		document.getElementById(toBClearField).value = null;
 	};
-		
 </script>
 
 <link rel="icon" href="favicon.svg" type="image/svg" sizes="16x16">
@@ -41,7 +40,7 @@
 		<div class="column">
 			<form action="convertInput" th:action="@{/convertInput}"
 				th:object="${converterRequest}" method="post">
-				<input type="hidden" id="playSound" th:value="${play}"/>
+				<input type="hidden" id="playSound" th:value="${play}" />
 				<h2>INPUT CONVERTER</h2>
 				<table>
 					<tr>
@@ -57,6 +56,13 @@
 						<td><input type="text" th:field="*{morseCode}"
 							id="morseCodeId" name="morseCode" placeholder="Morse Code"
 							onfocus="clearField('englishMessageId');"></input></td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td><p th:text="${errormessage}"
+								th:if="${errormessage ne null}"
+								class="alert alert-primary error"></p></td>
 					</tr>
 					<tr>
 						<!-- <td></td> -->
@@ -85,6 +91,11 @@
 					<tr>
 						<td><p class="error" th:text="${readyMessage}"
 								th:if="${readyMessage ne null}"></p></td>
+					</tr>
+					<tr>
+						<td><p th:text="${uploaderrormessage}"
+								th:if="${uploaderrormessage ne null}"
+								class="alert alert-primary error"></p></td>
 					</tr>
 
 					<tr>

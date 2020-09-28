@@ -3,7 +3,6 @@ package com.pkg.morsecode.application.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,21 +15,17 @@ import com.pkg.morsecode.application.Entity.ConverterRequest;
 import com.pkg.morsecode.application.Entity.ConverterResponse;
 import com.pkg.morsecode.application.bo.MorseConverterBO;
 import com.pkg.morsecode.application.common.ApplicationConstant;
-import com.pkg.morsecode.application.player.MorseAudioPlayer;
+
 
 @RestController
 //@Controller
 //@ResponseBody
 public class MorseController {
 
-	@Value("${enable.morsecode.application.sound}")
-	private Boolean enableSound;
-
+	
 	@Autowired
 	MorseConverterBO morseConverterBO;
 
-	@Autowired
-	MorseAudioPlayer morseAudioPlayer;
 
 	@GetMapping(value = "/convert/{message}", produces = "application/json")
 	public /* @ResponseBody */ String convertInput(@Valid @PathVariable(value = "message") String message) {
@@ -51,7 +46,7 @@ public class MorseController {
 			} else {
 				System.out.println(ApplicationConstant.ENGLISH_FIELD_ERROR);
 				response = ApplicationConstant.ENGLISH_FIELD_ERROR;
-			}
+ 			}
 		}	
 		return response;
 

@@ -11,12 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import com.pkg.morsecode.application.bo.MorseConverterBO;
 import com.pkg.morsecode.application.bo.impl.MorseConverterBOImpl;
 import com.pkg.morsecode.application.common.ApplicationConstant;
-import com.pkg.morsecode.application.player.MorseAudioPlayer;
 
 /**
  * @author Mitali 
@@ -28,14 +25,12 @@ import com.pkg.morsecode.application.player.MorseAudioPlayer;
  */
 public class ApplicationUILoader implements ActionListener {
 
-	@Value("${enable.morsecode.application.sound}")
-	private Boolean enableSound;
 
 	private MorseConverterBO converterHelper;  
 	private JLabel englishLabel, morseLable, headerText, errorString;
 	private JTextField englishTextField, morseTextField;
 	private JButton convertButton;
-	MorseAudioPlayer morseAudioPlayer;
+//	MorseAudioPlayer morseAudioPlayer;
 
 	/**
 	 * Initializes applications Swing UI
@@ -43,7 +38,7 @@ public class ApplicationUILoader implements ActionListener {
 	 */
 	public ApplicationUILoader() {
 		converterHelper = new MorseConverterBOImpl();
-		morseAudioPlayer = new MorseAudioPlayer();
+//		morseAudioPlayer = new MorseAudioPlayer();
 		loadApplicationUI();
 	}
 
@@ -130,8 +125,9 @@ public class ApplicationUILoader implements ActionListener {
 					String translate = converterHelper.toEnglishLanguage(morseCode);
 					englishTextField.setText(translate);
 				} else {
-					errorString.setText(ApplicationConstant.MORSE_FIELD_ERROR);
-					System.out.println(ApplicationConstant.MORSE_FIELD_ERROR);
+					String error = String.format(ApplicationConstant.MORSE_FIELD_ERROR, "morsefield");
+					errorString.setText(error);
+					System.out.println(error);
 				}
 			} else {
 				if(null != englishString) {
@@ -141,13 +137,14 @@ public class ApplicationUILoader implements ActionListener {
 						englishString = englishString.toLowerCase();
 						String translate = converterHelper.toMorseCode(englishString);
 						morseTextField.setText(translate);
-						if(false) {
-							morseAudioPlayer.playSound(translate);
-							System.out.println("hello");
-						}
+//						if(false) {
+//							morseAudioPlayer.playSound(translate);
+//							System.out.println("hello");
+//						}
 					} else {
-						errorString.setText(ApplicationConstant.ENGLISH_FIELD_ERROR);
-						System.out.println(ApplicationConstant.ENGLISH_FIELD_ERROR);
+						String error = String.format(ApplicationConstant.ENGLISH_FIELD_ERROR, "englishField");
+						errorString.setText(error);
+						System.out.println(error);
 					}
 				}
 			}

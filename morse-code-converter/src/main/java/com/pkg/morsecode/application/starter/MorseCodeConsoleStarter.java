@@ -16,18 +16,9 @@ import com.pkg.morsecode.application.common.ApplicationConstant;
  */
 public class MorseCodeConsoleStarter {
 
-	//add validations and make changes in this client as per the swing client 
-	//on 22-july-2020
-
-	//add sound into this application
-
-	// modify this project to maven
-
-	// convert to spring project and test with postman
-
 	public static void main(String[] args) {
 
-		MorseConverterBO obj1 = new MorseConverterBOImpl();
+		MorseConverterBO morseConverterBo = new MorseConverterBOImpl();
 
 		System.out.println("Please Enter Your String To Convert : ");
 		String message;
@@ -44,7 +35,7 @@ public class MorseCodeConsoleStarter {
 
 		if(message.contains(".") || message.contains("-")) {
 			if(message.matches(ApplicationConstant.MORSE_REGEX)){
-				result = obj1.toEnglishLanguage(message);
+				result = morseConverterBo.toEnglishLanguage(message);
 			}
 			else {
 				System.out.println(ApplicationConstant.MORSE_FIELD_ERROR);
@@ -53,7 +44,7 @@ public class MorseCodeConsoleStarter {
 		} else {
 			if(!message.matches(ApplicationConstant.MORSE_REGEX)) {
 				message = message.toLowerCase();
-				result = obj1.toMorseCode(message);
+				result = morseConverterBo.toMorseCode(message);
 			} else {
 				System.out.println(ApplicationConstant.ENGLISH_FIELD_ERROR);
 				result = ApplicationConstant.ENGLISH_FIELD_ERROR;
